@@ -163,6 +163,9 @@ struct Settings {
 
 	// time to sleep (in ms) between polls:
 	float timeToSleepMS = 4.0f;
+	
+	int firstVJD = 1;
+	int lastVJD = 8;
 
 	// version number
 	std::string version = "1.07";
@@ -908,6 +911,8 @@ void parseSettings2() {
 	settings.writeCastToFile = (bool)stoi(cfg["writeCastToFile"]);
 
 	settings.autoStart = (bool)stoi(cfg["autoStart"]);
+	settings.firstVJD = stoi(cfg["firstVJoyDevice"]);
+	settings.lastVJD = stoi(cfg["lastVJoyDevice"]);
 
 }
 
@@ -1138,7 +1143,7 @@ void start() {
 
 
 	// get vJoy Device 1-8
-	for (int i = 1; i < 9; ++i) {
+	for (int i = settings.firstVJD; i < settings.lastVJD; ++i) {
 		acquirevJoyDevice(i);
 	}
 
@@ -2063,7 +2068,7 @@ TestGLContext& MyApp::GetContext(wxGLCanvas *canvas, bool useStereo) {
 
 
 
-MainFrame::MainFrame() : wxFrame(NULL, wxID_ANY, wxT("JoyCon-Driver by fosse ©2018")) {
+MainFrame::MainFrame() : wxFrame(NULL, wxID_ANY, wxT("JoyCon-Driver by fosse Â©2018")) {
 
 	wxPanel *panel = new wxPanel(this, wxID_ANY);
 
