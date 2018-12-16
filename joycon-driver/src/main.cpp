@@ -913,7 +913,6 @@ void parseSettings2() {
 	settings.autoStart = (bool)stoi(cfg["autoStart"]);
 	settings.firstVJD = stoi(cfg["firstVJoyDevice"]);
 	settings.lastVJD = stoi(cfg["lastVJoyDevice"]);
-
 }
 
 void start();
@@ -1143,7 +1142,7 @@ void start() {
 
 
 	// get vJoy Device 1-8
-	for (int i = settings.firstVJD; i < settings.lastVJD; ++i) {
+	for (int i = settings.firstVJD; i < settings.lastVJD+1; ++i) {
 		acquirevJoyDevice(i);
 	}
 
@@ -1714,7 +1713,7 @@ init_start:
 
 void actuallyQuit() {
 
-	for (int i = 1; i < 9; ++i) {
+	for (int i = settings.firstVJD; i < settings.lastVJD+1; ++i) {
 		RelinquishVJD(i);
 	}
 
